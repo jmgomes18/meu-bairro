@@ -1,8 +1,9 @@
-from flask.cli import FlaskGroup
+from flask import jsonify
 
-from src import app
+from src import create_app
 
-cli = FlaskGroup(app)
+app = create_app()
+
 
 if __name__ == "__main__":
-    cli()
+    app.run()
