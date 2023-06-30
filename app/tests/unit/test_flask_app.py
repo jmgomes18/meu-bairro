@@ -1,6 +1,4 @@
-import os
 from src import create_app
-from src.config import Config, TestingConfig
 
 def test_home_page(setup):
     """
