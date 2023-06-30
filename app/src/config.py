@@ -1,7 +1,9 @@
 import os
+from dotenv import load_dotenv
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-postgres_local_base = os.environ.get('DATABASE_URL', 'sqlite:///')
+load_dotenv()
+
+postgres_local_base = os.environ.get('DATABASE_URL', "sqlite://")
 
 class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
