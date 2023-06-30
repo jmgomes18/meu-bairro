@@ -9,7 +9,7 @@ class Users(Base):
     __tablename__ = "users"
 
     id = Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
-    _password = Column("password", String(100), nullable=False)
+    __password = Column("password", String(100), nullable=False)
     email = Column("email", String(100), nullable=False)
     is_active = Column("is_active", Boolean, nullable=False, default=True)
     is_company = Column("is_company", String(15), nullable=False)
@@ -22,16 +22,12 @@ class Users(Base):
         return f"User({self.email}, {self.is_active}, {self.is_company})"
 
     @hybrid_property
-    def password(self):
-        return self._password
+    def password(self): # type: ignore
+        return self.__password
 
     @password.setter
-    def password(self, value):
-        self._password = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
-
-    @password.expression
-    def password(self):
-        return self._password
+    def password(self, value): # type: ignore
+        self.__password = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
 
     def check_password(self, password):
-        return bcrypt.checkpw(password.encode(), self._password.encode())
+        return bcrypt.checkpw(password.encode(), self.__password.encode())
