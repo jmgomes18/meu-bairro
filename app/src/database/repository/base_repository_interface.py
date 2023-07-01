@@ -2,12 +2,13 @@ from abc import ABC
 from abc import abstractmethod
 from typing import List
 
+from shared.base_dto import BaseDTO
 from shared.base_model import BaseModel
 
 
 class BaseRepositoryInterface(ABC):
     @abstractmethod
-    def create(self, dto) -> BaseModel:
+    def create(self, dto: BaseDTO) -> BaseModel:
         raise NotImplementedError
 
     @abstractmethod
@@ -15,7 +16,7 @@ class BaseRepositoryInterface(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, dto) -> BaseModel:
+    def update(self, dto: BaseDTO) -> BaseModel:
         raise NotImplementedError
 
     @abstractmethod

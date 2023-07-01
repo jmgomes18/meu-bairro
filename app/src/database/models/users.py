@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 
+from shared.base_model import BaseModel
+
 
 @dataclass
-class Users:
+class Users(BaseModel):
     id: str
     password: str
     email: str
