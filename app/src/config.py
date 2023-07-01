@@ -1,14 +1,17 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
-postgres_local_base = os.environ.get('DATABASE_URL', "sqlite://")
+postgres_local_base = os.environ.get("DATABASE_URL", "sqlite://")
+
 
 class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
-    SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
+    SECRET_KEY = os.getenv("SECRET_KEY", "my_precious_secret_key")
     DEBUG = False
+
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = postgres_local_base
@@ -29,10 +32,6 @@ class ProductionConfig(Config):
     DEBUG = False
 
 
-config_by_name = dict(
-    dev=DevelopmentConfig,
-    test=TestingConfig,
-    prod=ProductionConfig
-)
+config_by_name = dict(dev=DevelopmentConfig, test=TestingConfig, prod=ProductionConfig)
 
 key = Config.SECRET_KEY

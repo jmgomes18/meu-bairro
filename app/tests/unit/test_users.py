@@ -1,8 +1,8 @@
 from src import create_app
 from src.database.entities import Users
 
-class TestUsers:
 
+class TestUsers:
     def test_password_hashing(self, setup):
         flask_app = create_app()
         with flask_app.test_client():

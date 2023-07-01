@@ -1,0 +1,36 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: pretty-format-json
+    -   id: check-yaml
+        args: [--unsafe]
+        stages: [commit]
+-   repo: https://github.com/ambv/black
+    rev: 22.12.0
+    hooks:
+    - id: black
+      language_version: python3.11
+      stages: [commit]
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.9.0
+    hooks:
+    -   id: reorder-python-imports
+        args: [--py39-plus]
+        stages: [commit]
+-   repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+    -   id: flake8
+        stages: [commit]
+-   repo: local
+    hooks:
+    - id: pytest
+      name: pytest
+      language: system
+      entry: python -m pytest app/tests/
+      always_run: true
+      pass_filenames: false
+      stages: [commit]

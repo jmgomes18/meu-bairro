@@ -1,12 +1,12 @@
-import os
-from dotenv import load_dotenv
-from app.src.database.db_base import Base
 from logging.config import fileConfig
+
+from alembic import context
 from alembic.config import Config
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from alembic import context
+from app.src.database.db_base import Base
 
 load_dotenv()
 # this is the Alembic Config object, which provides
@@ -14,7 +14,9 @@ load_dotenv()
 config = context.config
 alembic_cfg = Config()
 
-config.set_main_option("sqlalchemy.url", 'postgresql://postgres:postgres@localhost:5432/meu_bairro_dev')
+config.set_main_option(
+    "sqlalchemy.url", "postgresql://postgres:postgres@localhost:5432/meu_bairro_dev"
+)
 
 
 # Interpret the config file for Python logging.
@@ -24,7 +26,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.src.database.entities import Users
+from app.src.database.entities import Users  # noqa: F401
 
 target_metadata = Base.metadata
 
@@ -72,9 +74,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

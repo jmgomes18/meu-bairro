@@ -1,9 +1,16 @@
 import uuid
-import bcrypt
 from datetime import datetime
+
+import bcrypt
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import DateTime
+from sqlalchemy import String
+from sqlalchemy import UUID
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, String, DateTime, UUID, Boolean
+
 from app.src.database.db_base import Base
+
 
 class Users(Base):
     __tablename__ = "users"
@@ -22,11 +29,11 @@ class Users(Base):
         return f"User({self.email}, {self.is_active}, {self.is_company})"
 
     @hybrid_property
-    def password(self): # type: ignore
+    def password(self):  # type: ignore
         return self.__password
 
     @password.setter
-    def password(self, value): # type: ignore
+    def password(self, value):  # type: ignore
         self.__password = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
 
     def check_password(self, password):
