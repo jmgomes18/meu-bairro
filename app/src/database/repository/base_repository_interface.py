@@ -2,8 +2,8 @@ from abc import ABC
 from abc import abstractmethod
 from typing import List
 
-from shared.base_dto import BaseDTO
-from shared.base_model import BaseModel
+from src.shared.base_dto import BaseDTO
+from src.shared.base_model import BaseModel
 
 
 class BaseRepositoryInterface(ABC):

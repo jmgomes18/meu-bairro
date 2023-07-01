@@ -1,8 +1,8 @@
 from typing import List
 
-from database.database import db
-from shared.base_dto import BaseDTO
-from shared.base_model import BaseModel
+from src.database.database import db
+from src.shared.base_dto import BaseDTO
+from src.shared.base_model import BaseModel
 
 from .base_repository_interface import BaseRepositoryInterface
 

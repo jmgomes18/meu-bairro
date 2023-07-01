@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from shared.base_model import BaseModel
+from src.shared.base_model import BaseModel
 
 
 @dataclass
