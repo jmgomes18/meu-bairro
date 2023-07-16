@@ -19,7 +19,7 @@ def test_home_page(setup):
         assert response.status_code == 200
 
 
-def test_database_connection(setup):
+def test_database_connection():
     flask_app = create_app()
     flask_app.config.from_object("src.config.TestingConfig")
 

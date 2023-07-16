@@ -1,7 +1,8 @@
 from typing import Dict
 from typing import Optional
 
-from shared.base_dto import BaseDTO
+from src.database.models import Users
+from src.shared.base_dto import BaseDTO
 
 
 class UserDTO(BaseDTO):
@@ -18,7 +19,6 @@ class UserDTO(BaseDTO):
         self.email = email
         self.is_active = is_active
         self.is_company = is_company
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -37,4 +37,14 @@ class UserDTO(BaseDTO):
             email=dto.get("email"),
             is_active=dto.get("is_active"),
             is_company=dto.get("is_company"),
+        )
+
+    @classmethod
+    def from_model(cls, user: Users):
+        return cls(
+            id=user.id,
+            email=user.email,
+            password=user.password,
+            is_active=user.is_active,
+            is_company=user.is_company,
         )
