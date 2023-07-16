@@ -34,6 +34,3 @@ class Users(Base):
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode(), self._password.encode())
-
-    def json(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
