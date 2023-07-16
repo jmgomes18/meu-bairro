@@ -1,7 +1,9 @@
+from uuid import uuid4
+
 import pytest
 from src import create_app
 from src.database.database import db
-from src.database.entities import Users
+from src.database.models import Users
 
 
 @pytest.fixture(scope="module")
@@ -24,11 +26,13 @@ def test_client(test_app):
 @pytest.fixture(scope="function")
 def base_user(test_client):
     user = Users(
+        id=str(uuid4()),
         email="test@example.com",
         password="test_pass",
         is_active=True,
-        is_company="Company",
+        is_company=False,
     )
+    user.password = "test_pass"
     db.session.add(user)
     db.session.commit()
     yield user
@@ -39,16 +43,18 @@ def base_user(test_client):
 
 def test_create_user(test_client):
     user = Users(
-        email="test@example.com",
+        id=str(uuid4()),
+        email="novo@example.com",
         password="test_pass",
         is_active=True,
-        is_company="Company",
+        is_company=False,
     )
+    user.password = "test_pass"
     db.session.add(user)
 
-    retrieved_user = db.session.query(Users).filter_by(email="test@example.com").first()
+    retrieved_user = db.session.query(Users).filter_by(email="novo@example.com").first()
     assert retrieved_user is not None
-    assert retrieved_user.email == "test@example.com"
+    assert retrieved_user.email == "novo@example.com"
     db.session.close()
 
 
