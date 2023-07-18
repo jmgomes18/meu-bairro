@@ -1,41 +1,41 @@
 from logging import Logger
-from typing import Dict
 
+from flask_jwt_extended import create_access_token
 from src.api.exceptions import AuthError
-from src.api.modules.users.infra import UserRepository
 
 logger = Logger("auth_service")
 
 
 class AuthService:
-    def __init__(self, user_repository: UserRepository) -> None:
-        self.user_repository = user_repository
+    def __init__(self, app) -> None:
+        self.app = app
+        # self.config = config
+        # self.oauth = OAuth(app)
+        # self.auth_domain = os.environ.get("AUTH_DOMAIN")
+        # self.auth0 = self.oauth.register(
+        #     "auth0",
+        #     client_id=os.environ.get("CLIENT_ID"),
+        #     client_secret=os.environ.get("AUTH_SECRET"),
+        #     api_base_url=f"https://{self.auth_domain}",
+        #     access_token_url=f"https://{self.auth_domain}/oauth/token",
+        #     authorize_url=f"https://{self.auth_domain}/authorize",
+        #     client_kwargs={"scope": "openid profile email"},
+        # )
 
-    def get_token_auth_header(self, headers: Dict):
-        """
-        Obtains the Access Token from the Authorization Header
-        """
-        try:
-            auth = headers.get("Authorization")
+        # self.jwt = JWTManager(app)
 
-            if not auth:
-                raise AuthError(error="Authorization header missing")
+        # @self.jwt.unauthorized_loader
+        def unauthorized_callback(error):
+            return AuthError(error="Invalid token")
 
-            parts = auth.split()
+    def authenticate_user(self, username, password):
+        # Your authentication logic goes here
+        # Validate the user's credentials and return the user object if authenticated.
+        # For demonstration purposes, we'll use a dummy user object.
+        if username == "user" and password == "pass":
+            return {"id": 1, "username": "user"}
 
-            if parts[0].lower() != "bearer":
-                raise AuthError(error="Authorization header must start with Bearer")
+        return None
 
-            elif len(parts) == 1:
-                raise AuthError(error="Token not found")
-
-            elif len(parts) > 2:
-                raise AuthError(error="Authorization header must be <Bearer> + <Token>")
-
-            return parts[1]
-        except Exception as e:
-            logger.error(f"{e}")
-            return {
-                "status_code": 500,
-                "message": "Something is wrong, please try again",
-            }
+    def create_access_token(self, user):
+        return create_access_token(identity=user["id"])

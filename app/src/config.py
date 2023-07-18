@@ -9,7 +9,10 @@ postgres_local_base = os.environ.get("DATABASE_URL", "sqlite://")
 
 class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
-    SECRET_KEY = os.getenv("SECRET_KEY", "my_precious_secret_key")
+    SECRET_KEY = os.getenv("API_SECRET_KEY", "my_precious_secret_key")
+    AUTH_DOMAIN = os.getenv("AUTH_DOMAIN")
+    CLIENT_ID = os.getenv("CLIENT_ID")
+    AUTH_SECRET = os.getenv("AUTH_SECRET")
     DEBUG = False
 
 

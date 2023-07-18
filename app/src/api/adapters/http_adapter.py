@@ -24,7 +24,7 @@ class HttpAdapter:
         )
 
     @staticmethod
-    def make_response(http_response):
+    def make_response(http_response: HttpResponse):
         return (
             jsonify(http_response.data),
             http_response.status_code,
